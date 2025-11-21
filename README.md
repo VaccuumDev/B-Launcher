@@ -2,6 +2,8 @@
 
 The official cross-platform launcher for **B-World**, built with Avalonia UI and .NET!
 
+![B-Launcher UI](screenshot.png)
+
 ## About
 
 _B-Launcher is the dedicated launcher for the procedural open-world game B-World. It simplifies downloading and launching the game on both Linux and Windows platforms. The launcher is built using the MVVM architecture for clear separation of UI and logic, making it easy to extend and maintain._
