@@ -1,7 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Avalonia;
 using ReactiveUI;
 
 namespace BW_Launcher.ViewModels;

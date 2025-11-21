@@ -1,8 +1,9 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using BW_Launcher.Models;
 using BW_Launcher.ViewModels;
-using System.Threading.Tasks;
+using System;
 
 namespace BW_Launcher.Views;
 
@@ -14,30 +15,49 @@ public partial class MainWindow : Window
         Log.Information("Initialized");
         RunButton.Click += RunButtonClickHandler;
         InstallButton.Click += InstallButtonClickHandler;
+        CodeButton.Click += CodeButtonClickHandler;
         //Log.Information($"Avalonia ItemSource variabble elements count is {MainWindowViewModel.verDisplayNames.Count}", "DEBUG");
     }
-
-    public void InstallButtonClickHandler(object? sender, RoutedEventArgs e)
+    public async void InstallButtonClickHandler(object? sender, RoutedEventArgs e)
     {
-        Log.Information("Install button clicked");
+        Log.Debug("Install button clicked");
 
-        var result = Task.Run(async () => await BW_Launcher.Models.VersionsInstaller.DownloadAsync(
-            BW_Launcher.ViewModels.MainWindowViewModel.Link,
-            BW_Launcher.ViewModels.MainWindowViewModel.ID
-        )).GetAwaiter().GetResult();
+        try
+        {
+            await BW_Launcher.Models.VersionsInstaller.DownloadAsync(
+                MainWindowViewModel.Link,
+                MainWindowViewModel.ID
+            );
+            Log.Debug($"Downloading finished");
+        }
+        catch (Exception ex)
+        {
+            Log.Error($" while downloading file: {ex.Message}");
+        }
+
     }
 
-    public void RunButtonClickHandler(object? sender, RoutedEventArgs e) 
+    public void PointerPressedHandler(object? sender, PointerPressedEventArgs e)
     {
-        Log.Information("Play button clicked");
-
+        Log.Debug("Start Dragging window");
+        if (e.GetCurrentPoint(null).Properties.IsLeftButtonPressed && this is Avalonia.Controls.Window win)
+        {
+            win.BeginMoveDrag(e);
+        }
+    }
+    public void RunButtonClickHandler(object? sender, RoutedEventArgs e)
+    {
+        Log.Debug("Play button clicked");
         ProcessRunner.RunGame(MainWindowViewModel.ID);
     }
-
-    /*protected void OnClosed()
+    public async void CodeButtonClickHandler(object? sender, RoutedEventArgs e)
     {
-        _mediaPlayer.Dispose();
-            _libVLC.Dispose();
-            //base.OnClosed();
-    }*/
+        Log.Debug("Code button clicked");
+        var top = TopLevel.GetTopLevel(this);
+        if (top?.Launcher is null)
+            return;
+
+        var uri = new Uri("https://github.com/VaccuumDev/");
+        await top.Launcher.LaunchUriAsync(uri);
+    }
 }

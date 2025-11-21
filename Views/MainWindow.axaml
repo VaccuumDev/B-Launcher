@@ -3,12 +3,14 @@
         xmlns:vm="using:BW_Launcher.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:dialogHost="clr-namespace:DialogHostAvalonia;assembly=DialogHost.Avalonia"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="BW_Launcher.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         SystemDecorations="None"
         Background="Transparent"
-        Title="B-World"
+        Title="B-World Launcher"
+        TransparencyLevelHint="AcrylicBlur"
         ExtendClientAreaToDecorationsHint="True"
         CanResize="True"
         xmlns:md="https://github.com/whistyun/Markdown.Avalonia">
@@ -40,6 +42,12 @@
                 <GradientStop Color="#55D555" Offset="1.0"/>
             </LinearGradientBrush>
         </Border.BorderBrush>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                <GradientStop Color="#2a057FD7" Offset="0.0"/>
+                <GradientStop Color="#2a55D555" Offset="1.0"/>
+            </LinearGradientBrush>
+        </Border.Background>
 
         <!-- содержимое окна -->
         <Panel>
@@ -57,6 +65,24 @@
                         <Panel HorizontalAlignment="Left">
                             <Image Source="avares://BW-Launcher/Assets/BW_Logo.png" Width="100" Height="100" />
                         </Panel>
+                        <Panel HorizontalAlignment="Center" Name="DragZone" PointerPressed="PointerPressedHandler" >
+                            <Border VerticalAlignment="Top" Height="20" CornerRadius="10" Width="200" Background="#ffffff"> 
+                                <Border.Styles>
+                                    <Style Selector="Border">
+                                        <Setter Property="Opacity" Value=".2" />
+                                    </Style>
+                                    <Style Selector="Border:pointerover">
+                                        <Setter Property="Opacity" Value=".4" />
+                                    </Style>
+                                </Border.Styles>
+
+                                <Border.Transitions>
+                                    <Transitions>
+                                        <DoubleTransition Property="Opacity" Easing="CubicEaseInOut" Duration="0:0:0.3"/>
+                                    </Transitions>
+                                </Border.Transitions>
+                            </Border>
+                        </Panel>
                         <Panel HorizontalAlignment="Right">
                             <TextBlock FontFamily="MainFont" Text="B-Launcher" FontSize="40" FontWeight="Bold" Foreground="White"/>
                         </Panel>
@@ -73,26 +99,23 @@
                 <!-- Элементы управления -->
                 <StackPanel HorizontalAlignment="Left"
                     VerticalAlignment="Stretch" Margin="10,100"
-                    Grid.Column="0">
+                    Grid.Column="0" >
                     
-                    <ComboBox x:Name="VersionsList" ItemsSource="{Binding Items}" SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}">
+                    <ComboBox Margin="5,30" x:Name="VersionsList" ItemsSource="{Binding Items}" SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}">
                     </ComboBox>
 
-                    <Panel VerticalAlignment="Stretch" Height="90">
-                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="30" Padding="0.5,0.5" BorderThickness="3" Background="#000000">
-                            <Border.BorderBrush>
-                                <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
-                                    <GradientStop Color="#057FD7" Offset="0.0"/>
-                                    <GradientStop Color="#55D555" Offset="1.0"/>
-                                </LinearGradientBrush>
-                            </Border.BorderBrush>
+                    <!-- Кнопки -->
+                    <Panel VerticalAlignment="Stretch" Height="160">
+                        <Border BorderBrush="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="40" Padding="0.5,0.5" BorderThickness="1" Background="#11ffffff">
 
                             <Border.Styles>
                                 <Style Selector="Border">
                                     <Setter Property="RenderTransform" Value="scale(1)"/>
+                                    <Setter Property="BorderThickness" Value="1"/>
                                 </Style>
                                 <Style Selector="Border:pointerover">
                                     <Setter Property="RenderTransform" Value="scale(1.2)"/>
+                                    <Setter Property="BorderThickness" Value="2"/>
                                 </Style>
                             </Border.Styles>
 
@@ -102,14 +125,12 @@
                                 </Transitions>
                             </Border.Transitions>
 
-                            <Button Name="InstallButton" CornerRadius="30" Background="Transparent">
-                                <TextBlock FontFamily="MainFont" Foreground="White">
-                                    Установить
-                                </TextBlock>
+                            <Button Width="120" Name="InstallButton" CornerRadius="40" Background="Transparent">
+                                <Image Source="avares://BW-Launcher/Assets/i_download.png" Height="48" Width="48"/>
                             </Button>
                         </Border>
 
-                        <Border VerticalAlignment="Top" HorizontalAlignment="Center" CornerRadius="30" Padding="0.5,0.5" BorderThickness="3" Background="#000000">
+                        <Border VerticalAlignment="Top" HorizontalAlignment="Center" CornerRadius="30" Padding="0.5,1" BorderThickness="3" Background="#88000000">
                             <Border.BorderBrush>
                                 <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
                                     <GradientStop Color="#057FD7" Offset="0.0"/>
@@ -133,11 +154,17 @@
                             </Border.Transitions>
 
                             <Button Name="RunButton" CornerRadius="30" Background="Transparent">
-                                <TextBlock FontFamily="MainFont" Foreground="White">
-                                    Запустить
-                                </TextBlock>
+                                <Panel Width="150">
+                                    <Image HorizontalAlignment="Center" Source="avares://BW-Launcher/Assets/i_rounded_triangle.png" Height="48" Width="48"/>
+                                </Panel>
                             </Button>
                         </Border>
+                    </Panel>
+
+                    <Panel VerticalAlignment="Stretch" Height="600" >
+                        <Button VerticalAlignment="Bottom" Background="Transparent" Height="64" Width="64" Name="CodeButton">
+                            <Image Source="avares://BW-Launcher/Assets/i_code.png"/> 
+                        </Button>
                     </Panel>
                 </StackPanel>
 
@@ -159,6 +186,11 @@
                     </TextBlock>
                 <Image HorizontalAlignment="Right" Width="64" Height="64" x:Name="SystemIndicator" Source="{Binding OSLogo}"></Image>
             </Panel>
+
+            <dialogHost:DialogHost CloseOnClickAway="True">
+                <dialogHost:DialogHost.DialogContent>
+                </dialogHost:DialogHost.DialogContent>
+            </dialogHost:DialogHost>
         </Panel>
     </Border>
 </Window>

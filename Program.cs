@@ -10,9 +10,10 @@ sealed class Program
 {
 
     [STAThread]
-    public static void Main(string[] args) {
+    public static void Main(string[] args)
+    {
         using var log = new LoggerConfiguration()
-            .WriteTo.File(Path.Combine(AppContext.BaseDirectory,"bw-launcher-runtime-log.txt")
+            .WriteTo.File(Path.Combine(AppContext.BaseDirectory, "bw-launcher-runtime-log.txt")
             , rollingInterval: RollingInterval.Day, outputTemplate:
         "{Timestamp:HH:mm:ss} :: [{Level:u3}] >> {Message:lj}{NewLine}{Exception}")
             .CreateLogger();
@@ -24,7 +25,7 @@ sealed class Program
         }
         catch (Exception ex)
         {
-            File.WriteAllText(Path.Combine(AppContext.BaseDirectory,"bw-launcher-crash-Log.txt"), DateTime.UtcNow + " - " + ex.ToString());
+            File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "bw-launcher-crash-Log.txt"), DateTime.UtcNow + " - " + ex.ToString());
             throw;
         }
     }
