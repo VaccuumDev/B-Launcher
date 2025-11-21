@@ -54,6 +54,5 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 *This project is licensed under the MIT License.*
 
-by Vaccuum
 Thank you for supporting B-World!  
 *by Vaccuum*
