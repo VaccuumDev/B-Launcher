@@ -14,10 +14,10 @@ _B-Launcher is the dedicated launcher for the procedural open-world game B-World
 - Lightweight and efficient .NET-based MVVM architecture
 - Initial version 1.0 with core launcher functionality
 
-## Latest Release: Version 1.0  
+## Latest Release: Version 0.1
 _Release Date:_ September 2025
 
-### What’s New in 1.0
+### What’s New in 0.1
 
 - Initial release supporting game download and launch
 - Cross-platform UI compatible with Linux and Windows
