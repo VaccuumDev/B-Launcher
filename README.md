@@ -2,6 +2,8 @@
 
 The official cross-platform launcher for **B-World**, built with Avalonia UI and .NET!
 
+![B-Launcher UI](screenshot.png)
+
 ## About
 
 _B-Launcher is the dedicated launcher for the procedural open-world game B-World. It simplifies downloading and launching the game on both Linux and Windows platforms. The launcher is built using the MVVM architecture for clear separation of UI and logic, making it easy to extend and maintain._
@@ -12,23 +14,22 @@ _B-Launcher is the dedicated launcher for the procedural open-world game B-World
 - Easy and fast game download and launch
 - Built with Avalonia UI for a modern and responsive interface
 - Lightweight and efficient .NET-based MVVM architecture
-- Initial version 1.0 with core launcher functionality
+- Initial version 0.1 with core launcher functionality
 
-## Latest Release: Version 1.0  
-_Release Date:_ September 2025
+## Latest Release: Version 0.3
+_Release Date:_ november 2025
 
-### What’s New in 1.0
+### What’s New in 0.3
 
-- Initial release supporting game download and launch
-- Cross-platform UI compatible with Linux and Windows
-- Basic UI and functionality ready for future updates
+- **Multi-packet downloading** with automatic retry
+- UI Improvements
+- Better support for Wayland-compositors and Windows
 
 ### Roadmap
 
 - Implement automatic updates for launcher and game
 - Optimize performance and responsiveness
-- Add account-based save synchronization
-- Improve UI/UX with enhanced animations and themes
+- Improve UI/UX with custom theming
 
 ## For Developers
 
@@ -37,11 +38,10 @@ If you want to build your own launcher based on B-Launcher:
 - The project uses **.NET** and can be built using the `dotnet` CLI:
 ```sh
 dotnet build
-dotnet run
+dotnet publish --release <your platform>
 ```
 
-- The code follows the **MVVM (Model-View-ViewModel)** pattern to separate UI from business logic, making it clean and maintainable.
-- A special developer module is included but hidden by default to facilitate advanced features and debugging without cluttering the main user interface.
+- The code follows the **MVVM (Model-View-ViewModel)** pattern to separate UI from logic, making it clean and maintainable.
 - Feel free to fork and customize the launcher for your own projects!
 
 ## Contributing
