@@ -57,7 +57,7 @@ public partial class MainWindow : Window
         if (top?.Launcher is null)
             return;
 
-        var uri = new Uri("https://github.com/VaccuumDev/");
+        var uri = new Uri("https://github.com/VaccuumDev/B-Launcher");
         await top.Launcher.LaunchUriAsync(uri);
     }
 }

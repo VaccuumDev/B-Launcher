@@ -17,12 +17,16 @@
     <Window.Styles>
         <Style Selector="Panel.FadeInOnLoad">
             <Style.Animations>
-                <Animation Duration="0:0:3"> 
+                <Animation Duration="0:0:0.4" Easing="QuadraticEaseOut"> 
                     <KeyFrame Cue="0%">
                         <Setter Property="Opacity" Value="0.0"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="2"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="2"/>
                     </KeyFrame>
                     <KeyFrame Cue="100%">
                         <Setter Property="Opacity" Value="1.0"/>
+                        <Setter Property="ScaleTransform.ScaleX" Value="1"/>
+                        <Setter Property="ScaleTransform.ScaleY" Value="1"/>
                     </KeyFrame>
                 </Animation>
             </Style.Animations>
@@ -99,13 +103,13 @@
                 <!-- Элементы управления -->
                 <StackPanel HorizontalAlignment="Left"
                     VerticalAlignment="Stretch" Margin="10,100"
-                    Grid.Column="0" >
+                    Grid.Column="0" Spacing="80">
                     
                     <ComboBox Margin="5,30" x:Name="VersionsList" ItemsSource="{Binding Items}" SelectedIndex="{Binding SelectedItemIndex, Mode=TwoWay}">
                     </ComboBox>
 
                     <!-- Кнопки -->
-                    <Panel VerticalAlignment="Stretch" Height="160">
+                    <Panel Height="160" >
                         <Border BorderBrush="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="40" Padding="0.5,0.5" BorderThickness="1" Background="#11ffffff">
 
                             <Border.Styles>
@@ -161,7 +165,8 @@
                         </Border>
                     </Panel>
 
-                    <Panel VerticalAlignment="Stretch" Height="600" >
+                    <!-- Ссылка на исходниики -->
+                    <Panel >
                         <Button VerticalAlignment="Bottom" Background="Transparent" Height="64" Width="64" Name="CodeButton">
                             <Image Source="avares://BW-Launcher/Assets/i_code.png"/> 
                         </Button>
@@ -169,11 +174,10 @@
                 </StackPanel>
 
                 <!-- Блок с описанием -->
-                
-                <Panel Margin="30,100" VerticalAlignment="Stretch" Grid.Column="1">
-                    <Border Padding="20,20"
-                        CornerRadius="15" Background="#343434">    
-                            <md:MarkdownScrollViewer Markdown="{Binding Description}" />
+                <Panel Classes="FadeInOnLoad" Margin="30,100" VerticalAlignment="Stretch" Grid.Column="1">
+                    <Border Padding="20,20" 
+                            CornerRadius="15" Background="#343434">    
+                        <md:MarkdownScrollViewer Markdown="{Binding Description}" />
                     </Border>
                 </Panel>
             </Grid>
@@ -187,7 +191,13 @@
                 <Image HorizontalAlignment="Right" Width="64" Height="64" x:Name="SystemIndicator" Source="{Binding OSLogo}"></Image>
             </Panel>
 
-            <dialogHost:DialogHost CloseOnClickAway="True">
+            <dialogHost:DialogHost CloseOnClickAway="True"
+                dialogHost:DialogHostStyle.CornerRadius="10"
+                dialogHost:DialogHost.OverlayBackground="#aa000000"
+                dialogHost:DialogHost.Background="#343434"
+                dialogHost:DialogHost.BlurBackground="true"
+                dialogHost:DialogHost.BlurBackgroundRadius="16"
+                >
                 <dialogHost:DialogHost.DialogContent>
                 </dialogHost:DialogHost.DialogContent>
             </dialogHost:DialogHost>
