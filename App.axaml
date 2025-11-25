@@ -15,4 +15,25 @@
     <Application.Resources>
         <FontFamily x:Key="MainFont">avares://BW-Launcher/Assets/Fonts/VictorMono-VariableFont_wght.ttf</FontFamily>
     </Application.Resources>
+
+
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="/Assets/BW_Logo.png" 
+                ToolTipText="B-Launcher is running">
+            <TrayIcon.Menu>
+                <NativeMenu>
+                    <NativeMenuItem Header="B-Launcher">
+                        <NativeMenu>
+                            <NativeMenuItem Header="Показать"   />
+                            <NativeMenuItem Header="Логи"   />
+                            <NativeMenuItemSeparator />
+                            <NativeMenuItem Header="Закрыть"  />
+                        </NativeMenu>
+                    </NativeMenuItem>
+                </NativeMenu>
+            </TrayIcon.Menu>
+        </TrayIcon>
+    </TrayIcons>
+</TrayIcon.Icons>
 </Application>

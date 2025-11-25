@@ -3,7 +3,9 @@ using System.IO;
 using System.Diagnostics;
 using DialogHostAvalonia;
 namespace BW_Launcher.Models;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Controls;
+using Avalonia;
 
 public class ProcessRunner
 {
@@ -31,9 +33,14 @@ public class ProcessRunner
           var startInfo = new ProcessStartInfo
           {
             FileName = targetPath,
+            UseShellExecute = true
           };
 
           Process.Start(startInfo);
+          if (Application.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+          {
+            desktop.MainWindow?.Hide();
+          }
         }
         else
         {

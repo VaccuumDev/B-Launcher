@@ -1,7 +1,9 @@
 using Avalonia.Controls;
+using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using BW_Launcher.Models;
+using Avalonia.Controls.ApplicationLifetimes;
 using BW_Launcher.ViewModels;
 using System;
 
@@ -16,7 +18,7 @@ public partial class MainWindow : Window
         RunButton.Click += RunButtonClickHandler;
         InstallButton.Click += InstallButtonClickHandler;
         CodeButton.Click += CodeButtonClickHandler;
-        //Log.Information($"Avalonia ItemSource variabble elements count is {MainWindowViewModel.verDisplayNames.Count}", "DEBUG");
+
     }
     public async void InstallButtonClickHandler(object? sender, RoutedEventArgs e)
     {
@@ -60,4 +62,5 @@ public partial class MainWindow : Window
         var uri = new Uri("https://github.com/VaccuumDev/B-Launcher");
         await top.Launcher.LaunchUriAsync(uri);
     }
+
 }
