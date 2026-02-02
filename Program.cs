@@ -25,7 +25,7 @@ sealed class Program
         }
         catch (Exception ex)
         {
-            File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "bw-launcher-crash-Log.txt"), DateTime.UtcNow + " - " + ex.ToString());
+            File.WriteAllText(Path.Combine(AppContext.BaseDirectory, "bw-launcher-crash-log.txt"), DateTime.UtcNow + " - " + ex.ToString());
             throw;
         }
     }
