@@ -1,4 +1,3 @@
-using Spamton;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -15,14 +14,34 @@ public struct Version
     public string linkLinux { get; set; }
     public string linkWindows { get; set; }
 
-    public Version() {this.id="0"; this.name="error"; this.description="ERROR"; this.linkLinux=""; this.linkWindows="";}
+    public Version() { this.id = "0"; this.name = "error"; this.description = "ERROR"; this.linkLinux = ""; this.linkWindows = ""; }
 }
 
 public class JSONProcesser
 {
     public static async Task<List<Version>> GetRemoteJsonAsync(string url)
     {
-        string jsonString;
+        try
+        {
+            using HttpClient client = new HttpClient();
+            var response = await client.GetAsync(url).ConfigureAwait(false);
+            if (!response.IsSuccessStatusCode) return new List<Version>();
+
+            var jsonString = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var stopwatch = Stopwatch.StartNew();
+            var data = JsonSerializer.Deserialize<List<Version>>(jsonString);
+            stopwatch.Stop();
+            Log.Information($"Parsing took {stopwatch.ElapsedMilliseconds} ms");
+            return data ?? new List<Version>();
+        }
+        catch (HttpRequestException) { return new List<Version> { new Version() }; }
+        catch (TaskCanceledException) { return new List<Version> { new Version() }; }
+        catch (JsonException) { return new List<Version> { new Version() }; }
+        catch
+        {
+            return new List<Version>();
+        }
+        /*string jsonString;
 
         using HttpClient client = new HttpClient();
         Log.Information($"Http client created for {url}");
@@ -37,7 +56,7 @@ public class JSONProcesser
             //Log.Information(jsonString);
 
             var stopwatch = Stopwatch.StartNew();
-                var data = JsonSerializer.Deserialize<List<Version>>(jsonString);
+            var data = JsonSerializer.Deserialize<List<Version>>(jsonString);
             stopwatch.Stop();
             Log.Information($"Parsing took {stopwatch.ElapsedMilliseconds} ms");
 
@@ -47,7 +66,7 @@ public class JSONProcesser
         else
         {
             Log.Error("Failed to get content from URL");
-            return new List<Version>();
-        }
+            return new List<Version> { new Version() };
+        }*/
     }
 }

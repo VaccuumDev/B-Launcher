@@ -71,7 +71,7 @@
                             <Image Source="avares://BW-Launcher/Assets/BW_Logo.png" Width="100" Height="100" />
                         </Panel>
                         <Panel HorizontalAlignment="Center" Name="DragZone" PointerPressed="PointerPressedHandler" >
-                            <Border VerticalAlignment="Top" Height="20" CornerRadius="10" Width="200" Background="#ffffff"> 
+                            <Border VerticalAlignment="Top" Height="20" CornerRadius="10" Width="200" Background="#aaaaaa"> 
                                 <Border.Styles>
                                     <Style Selector="Border">
                                         <Setter Property="Opacity" Value=".2" />
@@ -111,8 +111,16 @@
 
                     <!-- Кнопки -->
                     <Panel Height="160" >
-                        <Border BorderBrush="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="40" Padding="0.5,0.5" BorderThickness="1" Background="#11ffffff">
+                        <Border VerticalAlignment="Bottom" HorizontalAlignment="Center" CornerRadius="40" Padding="0.5,0.5" BorderThickness="1" 
+                            Background="#11454545">
 
+                        <Border.BorderBrush>
+                            <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,100%">
+                                <GradientStop Color="#ffffffff" Offset="0.0"/>
+                                <GradientStop Color="#00aaaaaa" Offset="0.5"/>
+                                <GradientStop Color="#aaaaaaaa" Offset="1.0"/>
+                            </LinearGradientBrush>
+                        </Border.BorderBrush>
                             <Border.Styles>
                                 <Style Selector="Border">
                                     <Setter Property="RenderTransform" Value="scale(1)"/>
