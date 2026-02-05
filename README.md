@@ -1,6 +1,12 @@
+<div align="center">
+
+![B-Launcher icon](Assets/BW-LAUNCHER.png)
+
 # B-Launcher
 
 The official cross-platform launcher for **B-World**, built with Avalonia UI and .NET!
+
+</div>
 
 ![B-Launcher UI](screenshot.png)
 
